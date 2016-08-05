@@ -1,0 +1,7 @@
+<h1>Cat Info</h1>
+<p>Name: <%= @cat["name"]%> </p>
+<p>Breed: <%= @cat["breed"]%> </p>
+<p>Color: <%= @cat["color"]%> </p>
+<p>Age category: <%= @cat["age_category"]%> </p>
+<br>
+<p><%= link_to "Destroy this cat", "/cats/#{@cat['id']}",method: :delete %> </p>

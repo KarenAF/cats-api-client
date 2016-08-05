@@ -1,0 +1,7 @@
+<h1>Cats info</h1>
+<% @cats.each do |cat| %>
+ <p>Name: <%= cat["name"]%> </p>
+ <p>Breed: <%= cat["breed"]%> </p>
+<a href="/cats/<%= cat["id"] %>" > More info on this cat></a>
+<p>~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~  </p>
+<% end %>
