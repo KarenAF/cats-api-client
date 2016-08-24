@@ -1,11 +1,18 @@
 class CatsController < ApplicationController
+  HEADERS = { "Accept" => "application/json", "Authorization" => "Token token=#{ENV['API_KEY']}", "X-User-Email" => ENV['API_EMAIL'] }
   def index
-    @cats = Unirest.get("http://localhost:3000/v1/cats.json").body
+    @cats = Unirest.get(
+      "#{ENV['API_BASE_URL']}/cats.json",
+      headers: HEADERS
+      ).body
     render 'index.html.erb'
   end
 
   def show
-    @cat = Unirest.get("http://localhost:3000/v1/cats/#{params[:id]}.json").body
+    @cat = Unirest.get(
+      "#{ENV['API_BASE_URL']}/cats/#{params[:id]}.json",
+      headers: HEADERS
+      ).body
     render 'show.html.erb'
   end
 
@@ -15,8 +22,8 @@ class CatsController < ApplicationController
 
   def create
     @cat = Unirest.post(
-      "http://localhost:3000/v1/cats.json",
-      headers: {"Accept" => "application/json" },
+      "#{ENV['API_BASE_URL']}/cats.json",
+      headers: HEADERS,
       parameters: {
         name: params[:form_input_name],
         breed: params[:form_input_breed],
@@ -28,14 +35,16 @@ class CatsController < ApplicationController
   end
 
   def edit
-    @cat = Unirest.get("http://localhost:3000/v1/cats/#{params[:id]}.json").body
+    @cat = Unirest.get(
+      "#{ENV['API_BASE_URL']}/cats/#{params[:id]}.json"
+      ).body
     render 'edit.html.erb'
   end
 
   def update
     @cat = Unirest.patch(
-      "http://localhost:3000/v1/cats/#{params['id']}.json",
-      headers: {"Accept" => "application/json" },
+      "#{ENV['API_BASE_URL']}/cats/#{params[:id]}.json",
+      headers: HEADERS,
       parameters: {
         name: params[:form_input_name],
         breed: params[:form_input_breed],
@@ -47,7 +56,10 @@ class CatsController < ApplicationController
   end  
 
   def destroy
-    @cat = Unirest.delete("http://localhost:3000/v1/cats/#{params[:id]}.json").body
+    message = Unirest.delete(
+      "#{ENV['API_BASE_URL']}/cats/#{params[:id]}.json",
+      headers: HEADERS
+      ).body
     redirect_to '/cats'
   end
 end

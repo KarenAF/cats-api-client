@@ -4,4 +4,6 @@
 <p>Color: <%= @cat["color"]%> </p>
 <p>Age category: <%= @cat["age_category"]%> </p>
 <br>
+<p><a href="/cats/<%=@cat['id']%>/edit"> Edit this cat </a></p>
+<p><a href="/cats"> back to all cats </a></p>
 <p><%= link_to "Destroy this cat", "/cats/#{@cat['id']}",method: :delete %> </p>
