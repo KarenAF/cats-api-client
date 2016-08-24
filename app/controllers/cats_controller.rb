@@ -9,10 +9,11 @@ class CatsController < ApplicationController
   end
 
   def show
-    @cat = Unirest.get(
+    cat_hash = Unirest.get(
       "#{ENV['API_BASE_URL']}/cats/#{params[:id]}.json",
       headers: HEADERS
       ).body
+    @cat = Cat.new(cat_hash)
     render 'show.html.erb'
   end
 
